@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\TicketController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,6 +13,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::resource('/tickets', 'TicketController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
