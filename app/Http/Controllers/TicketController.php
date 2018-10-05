@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Ticket;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
+use App\Vehicle;
 
 class TicketController extends Controller
 {
@@ -26,7 +28,7 @@ class TicketController extends Controller
      */
     public function create()
     {
-        //
+        return view('tickets.create');
     }
 
     /**
@@ -37,29 +39,16 @@ class TicketController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $vehicle = Vehicle::firstOrCreate([
+            'plate' => $request->input('plate'),
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Ticket $ticket)
-    {
-        //
-    }
+        Ticket::create([
+            'vehicle_id' => $vehicle->id,
+            'checkin_at' => Carbon::now(),
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Ticket $ticket)
-    {
-        //
+        return redirect('tickets');
     }
 
     /**
@@ -71,17 +60,8 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
-        //
-    }
+        $ticket->update($request->all());
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Ticket  $ticket
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Ticket $ticket)
-    {
-        //
+        return redirect()->back();
     }
 }
