@@ -1,9 +1,18 @@
 @extends('layouts.app')
+@inject('priceManager', 'App\Services\PriceManager')
 
 @section('content')
     <h1>Entradas</h1>
 
     <a href="/tickets/create" class="btn btn-primary mb-2">Nova Entrada</a>
+
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+            {{ $error }}
+        @endforeach
+    </div>
+    @endif
 
     <table class="table">
         <thead>
@@ -27,7 +36,7 @@
                     minutos
                     {{ is_null($ticket->checkout_at) ? '(até o momento)' : '' }}
                 </td>
-                <td>R$ 00,00</td>
+                <td>R$ {{ number_format($priceManager->calculate($ticket), 2, ',', '.') }}</td>
                 <td>
                     <form action="/tickets/{{ $ticket->id }}" method="POST">
                         @method('PATCH')

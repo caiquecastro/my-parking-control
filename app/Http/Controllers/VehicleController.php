@@ -14,7 +14,9 @@ class VehicleController extends Controller
      */
     public function index()
     {
-        return Vehicle::all();
+        $vehicles = Vehicle::all();
+
+        return view('vehicles.index', compact('vehicles'));
     }
 
     /**
@@ -57,7 +59,7 @@ class VehicleController extends Controller
      */
     public function edit(Vehicle $vehicle)
     {
-        //
+        return view('vehicles.edit', compact('vehicle'));
     }
 
     /**
@@ -69,7 +71,9 @@ class VehicleController extends Controller
      */
     public function update(Request $request, Vehicle $vehicle)
     {
-        //
+        $vehicle->update($request->all());
+
+        return redirect('/vehicles');
     }
 
     /**

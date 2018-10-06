@@ -13,10 +13,16 @@ use App\Http\Controllers\TicketController;
 |
 */
 
-Route::resource('/tickets', 'TicketController');
-Route::resource('/vehicles', 'VehicleController');
-Route::resource('/settings', 'SettingsController');
+Route::group([
+    'middleware' => 'auth',
+], function () {
+    Route::resource('/tickets', 'TicketController');
+    Route::resource('/vehicles', 'VehicleController');
+    Route::resource('/settings', 'SettingsController');
+});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::redirect('/', '/login');

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Ticket;
+use App\Vehicle;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Vehicle;
 
 class TicketController extends Controller
 {
@@ -60,6 +60,10 @@ class TicketController extends Controller
      */
     public function update(Request $request, Ticket $ticket)
     {
+        if ($ticket->checkout_at) {
+            return redirect()->back()->withErrors('Entrada finalizada. Não é possível alterá-la.');
+        }
+
         $ticket->update($request->all());
 
         return redirect()->back();
