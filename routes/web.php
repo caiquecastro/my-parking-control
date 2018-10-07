@@ -16,6 +16,7 @@ use App\Http\Controllers\TicketController;
 Route::group([
     'middleware' => 'auth',
 ], function () {
+    Route::resource('/prices', 'PriceController');
     Route::resource('/tickets', 'TicketController');
     Route::resource('/vehicles', 'VehicleController');
     Route::resource('/settings', 'SettingsController');

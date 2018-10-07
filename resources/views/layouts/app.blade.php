@@ -44,7 +44,7 @@
                                 <a class="nav-link" href="{{ route('tickets.index') }}">{{ __('Entradas') }}</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ route('settings.index') }}">{{ __('Configurações') }}</a>
+                                <a class="nav-link" href="{{ route('prices.index') }}">{{ __('Tabela de Preços') }}</a>
                             </li>
                         @endauth
                     </ul>
