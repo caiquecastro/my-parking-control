@@ -14,6 +14,6 @@ class PriceManager
             ->where('max_time', '>=', $minutes)
             ->first();
 
-        return $price->value;
+        return $price->value ?? null;
     }
 }

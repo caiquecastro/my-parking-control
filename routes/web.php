@@ -20,10 +20,7 @@ Route::group([
     Route::resource('/tickets', 'TicketController');
     Route::resource('/vehicles', 'VehicleController');
     Route::resource('/settings', 'SettingsController');
+    Route::get('/', 'HomeController@index')->name('home');
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Route::redirect('/', '/login');

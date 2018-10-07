@@ -18,10 +18,10 @@
         <tbody>
             @foreach ($prices as $price)
             <tr>
-                <td>{{ $price->type }}</td>
-                <td>{{ $price->min_time }}</td>
-                <td>{{ $price->max_time }}</td>
-                <td>{{ $price->value }}</td>
+                <td>{{ __('prices.types.'.$price->type) }}</td>
+                <td>{{ $price->min_time }} minutos</td>
+                <td>{{ $price->max_time }} minutos</td>
+                <td>R$ {{ number_format($price->value, 2, ',', '.') }}</td>
                 <td>
                     <a href="/prices/{{ $price->id }}">Ver</a>
                     <a href="/prices/{{ $price->id }}/edit">Editar</a>
