@@ -18,6 +18,7 @@ class CreateTicketsTable extends Migration
             $table->unsignedInteger('vehicle_id');
             $table->timestamp('checkin_at');
             $table->timestamp('checkout_at')->nullable();
+            $table->decimal('price')->nullable();
 
             $table->foreign('vehicle_id')->references('id')->on('vehicles');
         });

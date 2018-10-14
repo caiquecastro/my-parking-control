@@ -38,10 +38,9 @@
                 </td>
                 <td>R$ {{ number_format($priceManager->calculate($ticket), 2, ',', '.') }}</td>
                 <td>
-                    @if ($ticket->checkout_at)
                     <a href="/tickets/{{ $ticket->id }}" class="btn btn-sm btn-secondary">Ver detalhes</a>
-                    @else
-                    <form action="/tickets/{{ $ticket->id }}" method="POST">
+                    @unless ($ticket->checkout_at)
+                    <form action="/tickets/{{ $ticket->id }}" method="POST" class="d-inline">
                         @method('PATCH')
                         @csrf
                         <input type="hidden" name="checkout_at" value="{{ now() }}">

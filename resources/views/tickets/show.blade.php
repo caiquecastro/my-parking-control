@@ -23,4 +23,13 @@
         <dt class="col-2">Preço</dt>
         <dd class="col-10">R$ {{ number_format($priceManager->calculate($ticket), 2, ',', '.') }}</dd>
     </dl>
+
+    {!! QrCode::size(250)->generate(Request::url()) !!}
+
+    <form action="/tickets/{{ $ticket->id }}" method="POST" class="mt-4">
+        @method('PATCH')
+        @csrf
+        <input type="hidden" name="checkout_at" value="{{ now() }}">
+        <button type="submit" class="btn btn-primary">Registrar Saída</button>
+    </form>
 @endsection
