@@ -43,12 +43,23 @@ class TicketController extends Controller
             'plate' => $request->input('plate'),
         ]);
 
-        Ticket::create([
+        $ticket = Ticket::create([
             'vehicle_id' => $vehicle->id,
             'checkin_at' => Carbon::now(),
         ]);
 
-        return redirect('tickets');
+        return redirect()->route('tickets.show', $ticket);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Vehicle  $vehicle
+     * @return \Illuminate\Http\Response
+     */
+    public function show(Ticket $ticket)
+    {
+        return view('tickets.show', compact('ticket'));
     }
 
     /**
