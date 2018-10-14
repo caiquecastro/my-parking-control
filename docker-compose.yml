@@ -1,0 +1,55 @@
+version: '3.7'
+
+volumes:
+  # MySQL Data
+  parking-control-mysql-data:
+    driver: local
+  # Redis Data
+  parking-control-redis-data:
+    driver: local
+
+services:
+  database:
+    image: mysql:8.0.12
+    container_name: parking-control-mysql
+    volumes:
+      - parking-control-mysql-data:/var/lib/mysql
+    ports:
+      - "5432:5432"
+    environment:
+      - MYSQL_PASSWORD=parking-control
+      - MYSQL_DATABASE=parking-control
+      - MYSQL_USER=parking-control
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+
+  cache:
+    image: redis:4.0
+    container_name: parking-control-cache
+    command: --appendonly yes
+    volumes:
+      - parking-control-redis-data:/data
+    ports:
+      - "6379:6379"
+
+  # PHP (with Ngnix)
+  app:
+    image: ambientum/php:7.2-nginx
+    container_name: parking-control-app
+    volumes:
+      - .:/var/www/app
+    ports:
+      - "80:8080"
+    depends_on:
+      - database
+      - cache
+
+  # Laravel Queues
+  queue:
+    image: ambientum/php:7.2
+    container_name: parking-control-queue
+    command: php artisan queue:listen
+    volumes:
+      - .:/var/www/app
+    depends_on:
+      - database
+      - cache
