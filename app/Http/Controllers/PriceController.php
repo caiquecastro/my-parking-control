@@ -61,7 +61,7 @@ class PriceController extends Controller
      */
     public function edit(Price $price)
     {
-        //
+        return view('prices.edit', compact('price'));
     }
 
     /**
@@ -73,7 +73,9 @@ class PriceController extends Controller
      */
     public function update(Request $request, Price $price)
     {
-        //
+        $price->update($request->all());
+
+        return redirect()->route('prices.show', $price);
     }
 
     /**
