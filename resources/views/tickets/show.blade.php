@@ -4,6 +4,14 @@
 @section('content')
     <h1>Entrada</h1>
 
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        @foreach ($errors->all() as $error)
+            {{ $error }}
+        @endforeach
+    </div>
+    @endif
+
     <dl class="row">
         <dt class="col-2">Veículo</dt>
         <dd class="col-10">
@@ -26,10 +34,8 @@
 
     {!! QrCode::size(250)->generate(Request::url()) !!}
 
-    <form action="/tickets/{{ $ticket->id }}" method="POST" class="mt-4">
-        @method('PATCH')
+    <form action="/tickets/{{ $ticket->id }}/checkout" method="POST" class="mt-4">
         @csrf
-        <input type="hidden" name="checkout_at" value="{{ now() }}">
         <button type="submit" class="btn btn-primary">Registrar Saída</button>
     </form>
 @endsection

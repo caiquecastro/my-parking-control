@@ -9,6 +9,7 @@ class Ticket extends Model
     public $timestamps = false;
 
     protected $fillable = [
+        'price',
         'vehicle_id',
         'checkin_at',
         'checkout_at',

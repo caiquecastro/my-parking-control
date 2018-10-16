@@ -1,4 +1,10 @@
 {
+    "Name": "Nome",
+    "Login": "Entrar",
     "Password": "Senha",
-    "E-Mail Address": "E-mail"
+    "Register": "Cadastrar",
+    "E-Mail Address": "E-mail",
+    "Remember Me": "Manter Conectado",
+    "Confirm Password": "Confirmar Senha",
+    "Forgot Your Password?": "Esqueceu sua senha?"
 }
